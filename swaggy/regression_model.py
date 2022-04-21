@@ -15,3 +15,22 @@ class Resnet18Regression(torch.nn.Module):
     def forward(self, x):
         out = self.resnet18(x)
         return out
+
+def construct_model():
+    print('----------------------------------------------------')
+    print('Constructing torch model')
+    print('----------------------------------------------------\n')
+    
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+    model = Resnet18Regression(1,1).to(device)
+
+    print(f'\tModel is stored on: {device}')
+
+    print('\n\tDONE.')
+    print('----------------------------------------------------')
+
+    return model
+
+if __name__ == "__main__":
+    model = construct_model()
