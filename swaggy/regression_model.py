@@ -27,7 +27,7 @@ def construct_model():
 
     print(f'\tModel is stored on: {device}')
 
-    print('\n\tDONE.')
+    print('\n\tDONE.\n')
     print('----------------------------------------------------')
 
     return model

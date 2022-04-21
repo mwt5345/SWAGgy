@@ -93,7 +93,7 @@ class ProcessDataset():
     def inv_standardize(self,element,STD,MEAN):
         return element * STD + MEAN
 
-def get_dataloaders(dat_dir,batchsize,train_test_split):
+def get_dataloaders(dat_dir,batch_size,train_test_split):
     print('----------------------------------------------------')
     print('Constructing data loaders')
     print('----------------------------------------------------\n')
@@ -120,7 +120,7 @@ def get_dataloaders(dat_dir,batchsize,train_test_split):
     train_data_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
     test_data_loader  = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
 
-    print('\n\tDONE.')
+    print('\n\tDONE.\n')
     print('----------------------------------------------------')
 
     return train_data_loader, test_data_loader
