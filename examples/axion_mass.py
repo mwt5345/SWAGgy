@@ -7,7 +7,7 @@ from swaggy.train import train
 
 # Set of params
 PRESWAG = False
-PRESWAG_model = '../weights/pre-swag-resnet.pt'
+PRESWAG_model = '../../weights/pre-swag-resnet.pt'
 dat_dir = '/users/mtoomey/scratch/shirley_project/data/vortex_axion_data'
 batch_size = 64
 train_test_split = 0.80
@@ -31,5 +31,3 @@ if PRESWAG:
     torch.save(model.state_dict(),PRESWAG_model)
 else:
     model.load_state_dict(torch.load(PRESWAG_model))
-
-
