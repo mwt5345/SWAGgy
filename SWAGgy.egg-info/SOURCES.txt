@@ -1,0 +1,15 @@
+.gitignore
+LICENSE
+README.md
+setup.py
+SWAGgy.egg-info/PKG-INFO
+SWAGgy.egg-info/SOURCES.txt
+SWAGgy.egg-info/dependency_links.txt
+SWAGgy.egg-info/top_level.txt
+examples/axion_mass.py
+examples/cluster_run.script
+examples/eval_pre_swag_perform.py
+swaggy/__init__.py
+swaggy/handle_data.py
+swaggy/regression_model.py
+swaggy/train.py
