@@ -1,1 +1,1 @@
-# SLURM scripts for example scripts
+SLURM scripts for files from examples/
