@@ -1,6 +1,8 @@
 import torch
 import numpy as np
 
+from swaggy.regression_model import Resnet18Regression
+
 def track_SWAG_params(model,thetaSWA,theta2,SWAGpoch):
     # Don't track any changes to the weights
     with torch.no_grad():
@@ -24,3 +26,15 @@ def track_SWAG_params(model,thetaSWA,theta2,SWAGpoch):
           theta2 = 1./(SWAGpoch + 1) * (np.power(nn,2) + (SWAGpoch)*theta2)
 
     return thetaSWA, theta2
+
+
+def sample_model(thetaSWA,theta2):
+  model_swag = Resnet18Regression(1,1).to("cpu")
+
+  # Loop trough copy of model, grab new weights stochastically
+  with torch.no_grad():
+    for param, tSWA, t2 in zip(model_swag.parameters(), thetaSWA, theta2):
+      mean, sigma = tSWA, np.sqrt(t2)
+      param.data = torch.from_numpy(np.random.normal(mean,sigma))
+
+  return model_swag

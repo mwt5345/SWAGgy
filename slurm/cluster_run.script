@@ -10,7 +10,7 @@
 
 #SBATCH --mem=5G
 
-#SBATCH -t 00:10:00
+#SBATCH -t 00:30:00
 #SBATCH -o ../../outfiles/swaggy-o.out
 #SBATCH -e ../../outfiles/swaggy-e.out
 
