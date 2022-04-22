@@ -14,4 +14,4 @@
 #SBATCH -o ../../outfiles/swaggy-o.out
 #SBATCH -e ../../outfiles/swaggy-e.out
 
-python3 -u axion_mass.py
+python3 -u ../examples/axion_mass.py
