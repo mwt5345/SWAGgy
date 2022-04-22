@@ -11,6 +11,9 @@ def train(model,optimizer,train_data_loader,test_data_loader,scheduler=None,num_
     print('\tTraining set-up:')
     print('\t----------------\n')
     print('\tNumber of epochs: ' + str(num_of_epochs) + '\n')
+
+    print(f'\t\t\tTrain\t\tValidation')
+    print(f'\t--------------------------------------------')
     # Start the training loop
     for i in range(num_of_epochs):
         epoch_loss, val_epoch_loss = 0, 0
@@ -39,7 +42,7 @@ def train(model,optimizer,train_data_loader,test_data_loader,scheduler=None,num_
             epoch_loss+=loss
             num_of_steps_in_epoch+=1
 
-        loss_w = (epoch_loss/num_of_steps_in_epoch).detach().item()
+        loss_w = round((epoch_loss/num_of_steps_in_epoch).detach().item(),5)
 
         with torch.no_grad():
             for step, (images_batch, axion_mass_batch) in enumerate(test_data_loader):
@@ -57,9 +60,10 @@ def train(model,optimizer,train_data_loader,test_data_loader,scheduler=None,num_
                 val_epoch_loss+=val_loss
                 val_num_of_steps_in_epoch+=1
 
-        val_loss_w = (val_epoch_loss/val_num_of_steps_in_epoch).detach().item()
+        val_loss_w = round((val_epoch_loss/val_num_of_steps_in_epoch).detach().item(),5)
 
-        print(f'\t\tEpoch {i+1} loss:\n\tTrain: {loss_w}\n\tVal: {val_loss}')
+        if (i + 1) % 5 == 0:
+            print(f'\tEpoch {i+1} loss:\t{loss_w}\t\t{val_loss_w}')
 
     print('\n\tDONE.\n')
     print('----------------------------------------------------')
