@@ -8,9 +8,9 @@
 # Request 1 CPU core
 #SBATCH -n 1
 
-#SBATCH --mem=5G
+#SBATCH --mem=15G
 
-#SBATCH -t 00:30:00
+#SBATCH -t 02:00:00
 #SBATCH -o ../../outfiles/swaggy-o.out
 #SBATCH -e ../../outfiles/swaggy-e.out
 

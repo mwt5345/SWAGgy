@@ -1,5 +1,7 @@
 import torch
 import numpy as np
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 # import relevant SWAGgy modules
@@ -54,10 +56,10 @@ else:
 
     predicted_axion_mass_list = []
     # Sample the weights at a data point
-    for i in range(250):
+    for i in range(1000):
         # Grab a test data point
-        test_image = list(test_ldr)[0][0][1]
-        test_value = list(test_ldr)[0][1][1]
+        test_image = list(test_ldr)[2][0][1]
+        test_value = list(test_ldr)[2][1][1]
         new_model = sample_model(thetaSWA,theta2)
         # Use GPU if available
         if torch.cuda.is_available():
@@ -72,9 +74,16 @@ else:
 
     convert_mass = inv_standardize(predicted_axion_mass_list,stats[2],stats[3])
 
-    plt.figure(figsize=(6,6))
-    plt.hist(convert_mass.flatten(),50,density=True,facecolor='g',alpha=0.75)
-    plt.xlabel('Axion mass')
-    plt.xlim([-25,-22])
-    plt.savefig('../figures/post')
+    convert_true_mass = inv_standardize(true_mass.cpu().detach().numpy(),stats[2],stats[3])
 
+    plt.figure(figsize=(6,6))
+    plt.hist(10**convert_mass.flatten(),bins=np.logspace(-25,-22,50),density=True,facecolor='g',alpha=0.75)
+    plt.axvline(np.median(10**convert_mass.flatten()),c='k',label='SWAG median')
+    plt.axvline(np.percentile(10**convert_mass.flatten(),5),c='k',ls='--')
+    plt.axvline(np.percentile(10**convert_mass.flatten(),95),c='k',ls='--',label='95%')
+    plt.axvline(10**convert_true_mass,label='Truth',c='r',lw=2)
+    plt.xlabel('Axion mass, eV')
+    plt.xlim([1e-25,1e-22])
+    plt.xscale('log')
+    plt.legend()
+    plt.savefig('../figures/post')
